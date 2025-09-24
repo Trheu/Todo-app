@@ -4,17 +4,17 @@ const input = document.getElementById("task-input");
 const taskList = document.getElementById("task-list");
 const template = document.getElementById("task-template");
 
-// Tehtävien tallennusta varten
+// Vaihe 1: luodaan taulukko kaikille tehtäville
 let tasks = [];
 
-// Funktio: Tallenna localStorageen
+// Vaihe 2: tallennetaan se localStorageen
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Funktio: Piirrä kaikki tehtävät ruudulle
+// Vaihe 3: näytetään tallennetut tehtävät ruudulla
 function renderTasks() {
-  taskList.innerHTML = ""; // tyhjennetään lista
+  taskList.innerHTML = ""; 
   tasks.forEach((task, index) => {
     const clone = template.content.cloneNode(true);
     const li = clone.querySelector("li");
@@ -30,16 +30,16 @@ function renderTasks() {
       checkbox.checked = true;
     }
 
-    // Checkbox toiminta
+    // Checkbox 
     checkbox.addEventListener("change", () => {
       tasks[index].done = checkbox.checked;
       saveTasks();
       renderTasks();
     });
 
-    // Poista-nappi toiminta
+    // Poista-nappi 
     deleteBtn.addEventListener("click", () => {
-      tasks.splice(index, 1); // poista taulukosta
+      tasks.splice(index, 1); 
       saveTasks();
       renderTasks();
     });
@@ -48,7 +48,7 @@ function renderTasks() {
   });
 }
 
-// Lomakkeen lähetys
+// Lomakkeen submit
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const text = input.value.trim();
